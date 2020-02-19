@@ -1,0 +1,226 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{ifthen}
+%\usepackage[scaled]{uarial}
+\renewcommand*\familydefault{\sfdefault}
+\usepackage[T1]{fontenc}
+\graphicspath{{./images/}}
+\usepackage{hyperref}
+\hypersetup{colorlinks,citecolor=black,filecolor=black,linkcolor=blue,urlcolor=blue}
+\usepackage{multicol}
+\usepackage{rotating}
+\usepackage[margin=1in]{geometry}
+\usepackage[outline]{contour}
+\usepackage{amsmath}
+\contourlength{.4pt}
+
+\definecolor{gray}{gray}{0.5}
+\definecolor{yellow}{cmyk}{0,0,1,0}
+
+\usepackage{comment}
+\usepackage[margin=10pt,font=small,labelfont=bf, format=hang]{caption}
+\usepackage[parfill]{parskip} %% Changes format to line between paragraph and no indent
+
+\begin{document}
+
+\begin{titlepage}
+\thispagestyle{empty}
+\begin{flushright}
+\includegraphics[width=0.25\textwidth]{logo3.jpg}
+\end{flushright}
+
+\vspace{5cm}
+
+\begin{flushleft}
+\color{gray}{\Huge {Eastern Amateur Coastal Rowing Club \\}}
+\medskip 
+\huge{\contour{gray}{\textcolor{yellow}{AGM financial report}}} \\
+\medskip
+\color{gray}{\Large {February 2018 - January 2019 \\}}
+\end{flushleft}
+
+\vfill
+\end{titlepage}
+% End title page
+
+\begin{flushleft}
+\section*{Summary}
+This financial report covers income and expenditure by EACRC during its third full year of operation, from the beginning of February 2018 to the end of January 2019. 
+
+Income and expenditure during this time is summarised in the broad categories  shown in the table below. 
+
+\begin{table}[htbp]
+	\centering
+	\begin{tabular}{llrr}
+		\toprule
+		& & Amount & Percent of total \\
+	\midrule
+	Income 	&	donation & \pounds60.00   & 0.7\% \\
+		&	kit & \pounds682.95  & 7.5\% \\
+		&	membership & \pounds3,778.66  & 41\% \\
+		& regattas & \pounds49.40 & 0.5\% \\
+		&	social & \pounds589.01  & 6.4\% \\
+	 	&	sponsorship & \pounds4,000.00  & 44\% \\
+	 \midrule
+	  Expenditure	&	admin & \pounds50.00 & 0.3\% \\
+	    & affiliation fees & \pounds60.00   & 0.3\% \\
+		&	equipment & \pounds10,568.43  & 60\% \\
+		&	insurance & \pounds694.25  & 4.0\% \\
+		&	kit & \pounds791.74  & 4.5\% \\
+		&	regattas & \pounds292.48   & 1.7\% \\
+		&	rental & \pounds4,388.73  & 25\% \\
+		&	social & \pounds572.00  & 3.3\% \\
+		&	training & \pounds117.47  & 0.7\% \\
+	 \bottomrule
+	\end{tabular}%
+	\label{}%
+\end{table}%
+
+
+All individuals who have contributed to the club by applying for grants, carrying out repair \& maintenance, attending meetings, developing training, delivering coxing, preparing rotas, conducting research, planning events, collecting fees and all other administrative tasks have done so voluntarily, with no paid work involved. 
+
+\begin{figure}[h]  \centering
+\caption{Total income and expenditure by month}
+\label{FIGinout}
+\includegraphics[width=0.9\textwidth]{inout-all-final-1819-all.pdf}
+\end{figure}
+
+As there were some months with very large income and expenditure, the same graph is shown below restricted to plus and minus \pounds1k. 
+
+\begin{figure}[h]  \centering
+	\caption{Total income and expenditure by month $\pm$ \pounds1k}
+	\label{FIGinout}
+	\includegraphics[width=0.9\textwidth]{inout-all-final-1819-zoom.pdf}
+\end{figure}
+
+\section*{Income}
+Membership and sponsorship each supplied over 40\% of the club's income. A small number of personal donations were made by members in lieu of borrowing the club's gazebo. Income related to socials and kit was entirely due to payments from members after the club paid for items in bulk. 
+ 
+\begin{table}[h]\centering
+	\caption{Total income by category}
+	\begin{tabular}{lp{6.5cm}r}
+		\toprule
+		Income	& Details & Total  \\
+		\midrule
+		Opening bank balance &       & \pounds9,768.97 \\
+		\midrule
+		Donation 	& 	\pounds60 - gazebo hire  & \pounds60.00 \\
+		Kit         &  Member orders  & \pounds682.95\\
+		Membership &               & \pounds3,778.66 \\
+		Regattas & Sale of refreshments & \pounds49.40 \\
+		Social & Christmas event & \pounds589.01 \\
+		Sponsorship & \pounds1,000 - Edinburgh Council Neighbourhood Partnership & \pounds4,000.00  \\
+		        & \pounds1,200 - Edinburgh airport community grant &  \\
+		        & \pounds1,800 - anonymous fund &  \\
+		\midrule
+		\textbf{Total} &    & \textbf{\pounds9,160.02} \\
+		\bottomrule
+	\end{tabular}
+	\label{TABincomecat}
+\end{table}
+	  
+\newpage
+
+\section*{Expenditure}
+The table below lists large items of expenditure including every item (or group of items) over \pounds100.
+\begin{table}[h]\centering
+	\caption{Total expenditure by category}
+	\begin{tabular}{lp{8.5cm}r}
+	\toprule
+	Expenditure & Detail & Total \\
+	\midrule
+	Admin & Costs related to SCIO status & \pounds50.00 \\
+	Affiliation  & SCRA  & \pounds60.00 \\
+	Equipment    & \pounds5,576.20 - boat build          & \pounds10,614.92 \\
+				 & \pounds1,581.60 - road trailer  &  \\
+				 & \pounds970 - 2 skiff covers     &  \\
+				 & \pounds720 - launch trolleys for 2$^{nd}$ boat    &  \\
+				 & \pounds394.80 - kit for 2$^{nd}$ boat (buoyancy aids,  &  \\
+				 & drogue, anchor etc) & \\
+				 & \pounds272.43 - plywood   &  \\
+				 & \pounds160 - cushions  for 2$^{nd}$ boat     &  \\
+				 & \pounds110.16 - nylon strips    &  \\
+				 & \ldots plus many other smaller items & \\
+	Insurance  	 & \pounds78.25 - addition of 2$^{nd}$ boat    & \pounds694.25 \\
+	            & \pounds616 - 2019 premium & \\
+	Kit        & \pounds745.25 - member orders &  \pounds791.74  \\
+	            & \pounds46.49 - club stock & \\
+	Regattas   & \pounds160 - towing costs & \pounds292.48 \\
+	        & \ldots plus several small items including       &  \\
+	        & sandwich costs, payment to PSKC for  & \\
+	        & rescue boat loan, engraving & \\
+	Rental	     &  12x \pounds200 - main shed & \pounds4,388.73  \\
+				 & 3 x \pounds75 - 2$^{nd}$ shed       & \\
+				 & \pounds202 - planning for Bellfield gate & \\
+				 & \pounds960 - Bellfield gate work & \\
+				 & \pounds400 - Bellfield stone mason & \\
+				 & 2x \pounds50 - Bellfield rental (Dec,Jan) & \\
+				 & \pounds101.73 - Bellfield ramp & \\
+    Social & Skylark hire and catering  & \pounds572.00 \\
+	Training    & SCRA development weekend, Dalriada  & \pounds117.47  \\
+	& booking, ergs, circuits equipment & \\
+	\midrule
+	\textbf{Total} & & \textbf{\pounds17,535.10}  \\
+	\bottomrule
+	\end{tabular}
+	\label{TABincome}
+\end{table}
+
+\newpage
+Changes in expenditure which recurred since the previous year include: \newline
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{llc}
+ $\Uparrow$ & Insurance: & \pounds504 $\rightarrow$ \pounds616\\
+            & Rental: & \pounds1,600 $\rightarrow$ \pounds4,388.73\\
+            & 1. Second shed & \pounds225 \\
+            & 2. Bellfield works & \pounds1,663.73 \\
+            & 3. Early Bellfield rent & \pounds100 \\
+            \midrule
+ $\Leftrightarrow$  & SCRA affiliation: & \pounds60 \\
+		            &	4 x cushions: & \pounds160\\
+		            \midrule
+$\Downarrow$        &	Training support:  & \pounds184 $\rightarrow$ \pounds117 \\
+	            	&	Towing refunds: & \pounds210 $\rightarrow$ \pounds160\\
+	\end{tabular}%
+	\label{}%
+\end{table}%
+
+Following discussion at the previous AGM the committee decided that the club should aim to retain \pounds1k in reserve. The club's bank balance at the end of January was \textbf{\pounds1,393.89} although some of this is already allocated to further necessary costs related to the Bellfield move (details below). 
+
+\section*{Plans for 2019} 	
+Both boats will be stored at Bellfield where we will benefit from lower rental costs in general, with a large discount during the first year by agreement with ActionPorty to offset the costs of widening the gate. We will retain the Bellfield Lane shed for a short time to allow the bosuns group to tackle some maintenance work which needs to be done under cover.  
+
+Income from membership in 2019 is estimated to be around \pounds4.4k. For the first time since the club opened, the full adult membership fee was increased this year by \pounds5 to \pounds90 to support us through the one-off costs involved in converting to a two-boat club in new premises. Fees for adult concessions (\pounds65) and youth members (\pounds20 or \pounds40) stayed the same. Fees are subject to an annual review and may be reduced again in future if costs are comfortably covered this year.  
+
+Expected costs for 2019 (\pounds4.3k) should be covered by membership fees. 
+\begin{itemize}
+    \item Final Bellfield costs (e.g. storage unit, cover supports) - \pounds700
+	\item Bellfield rental - \pounds50 per month 
+	\item Additional rental costs - \pounds1k
+	\item Skelf \& Sprite equipment upgrade, repair or replacement \pounds750
+	\item Insurance - \pounds620
+	\item Admin \& affiliation - \pounds110
+	\item Training support - \pounds350
+	\item Regatta towing - \pounds200
+\end{itemize} 
+\medskip
+
+Other sources of sponsorship will be sought as necessary for specific costs or initiatives. We aim to hold \pounds1k in reserve at the end of January 2020.
+\end{flushleft}
+
+\begin{center}
+\vfill
+
+		\textit{Figures collated and document produced by Claire Tochel, EACRC treasurer.} 
+		
+		\textit{Contact {\color{blue}{themainmoon@gmail.com}} for further information.}
+\end{center}
+
+
+\end{document}
