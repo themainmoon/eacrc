@@ -1,0 +1,318 @@
+---
+title: "Skiffieworlds 2019 results"
+author: "Claire Tochel"
+date: "24/10/2019"
+output:
+    html_document: 
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+library(dplyr)
+library(lubridate)
+library(ggplot2)
+library(tidyr)
+library(stringr)
+library(kableExtra)
+library(scales)
+```
+
+
+```{r read in data, warning=FALSE}
+setwd("C:\\Users\\Claire\\Dropbox\\projects\\EACRC\\events\\regattas\\worlds\\2019")
+#setwd("C:\\Users\\ctochel\\Dropbox\\projects\\EACRC\\events\\regattas\\worlds\\2019")
+results <- read.csv("results.csv", stringsAsFactors = FALSE)
+
+results$Date <- as.Date(results$Date, "%d/%m/%Y")
+results$Place <- as.numeric(results$Place)
+
+#tidy names
+results$Name[results$Name=="82 Strangford"] <- "82 - Strangford"
+
+temp <- trimws(str_split_fixed(results$Name, "-", 3))
+results$Boat_no <- temp[,1]
+results$Club <- temp[,2]
+results$Boat_name <- temp[,3]
+
+rm(temp)
+results$Boat_name[results$Boat_name==""] <- "Strangfjordr"
+results$Boat_no[results$Boat_no=="Strangford"] <- "82"
+results$Club[results$Club=="Strangfjordr"] <- "Strangford"
+results$Club[results$Club=="Avoch CRC"] <- "Avoch"
+results$Club[results$Club=="Colliston ORC"] <- "Colliston"
+results$Club[results$Club=="Broughty Ferry Boating"] <- "Broughty Ferry"
+results$Club[results$Club=="Bunillidh RC"] <- "Bunillidh"
+results$Club[results$Club=="Coigach CRC"] <- "Coigach"
+results$Club[results$Club=="Roisin"] <- "Deveron"
+results$Club[results$Club=="St. Ayles"] <- "St Ayles"
+results$Club[results$Club=="Burghead CRC"] <- "Burghead"
+results$Club[results$Club=="Crail RC"] <- "Crail"
+results$Club[results$Club=="Cromarty CRC"] <- "Cromarty"
+results$Club[results$Name=="NL 005 Woudrichem"] <- "WSV"
+
+results$Club <- as.factor(results$Club)
+
+#take out results with no result
+results <- results %>% filter(!is.na(Place) | Time=="DNF") %>% select(-X, -Name)
+results$Club <- droplevels(results$Club)
+```
+
+
+```{r count all cats entered, echo = FALSE}
+all_reps_heats <- read.csv("data\\derived\\all_reps_heats.csv", stringsAsFactors = FALSE)
+all_finals <- results %>% select(Club, Race) 
+all_finals$Club <- sub("All aboard Watersports", "All Aboard Watersports", all_finals$Club)
+all_finals$Race <- sub("\\+", "", all_finals$Race)
+all_races <- bind_rows(all_reps_heats, all_finals)
+
+all_races <- unique(all_races)
+
+all_races_count <- all_races %>% group_by(Club) %>% tally() %>% rename(RaceCount=n)
+all_finals_count <- all_finals %>% group_by(Club) %>% tally() %>% rename(FinalCount=n)
+races_finals_count <- merge(all_races_count, all_finals_count, by = "Club", all = TRUE)
+races_finals_count$FinalCount[is.na(races_finals_count$FinalCount)] <- 0
+races_finals_count$FinalProp <- round((races_finals_count$FinalCount/races_finals_count$RaceCount), 2)
+```
+
+## Participation - all race categories 
+
+There were `r length(unique(all_races$Race))` race categories. 
+
+All categories except the youth and Mx280 had heats (with or without a repechage) before the final. 
+
+The number of clubs which entered each race category is shown below:
+
+```{r count entrants, warning=FALSE}
+all_entrants_count <- all_races %>% group_by(Race) %>% tally() %>% rename(ClubCount=n)
+write.csv(all_entrants_count, "data\\derived\\all_entrants_count.csv", row.names = FALSE)
+all_entrants_count_wide <- read.csv("data\\derived\\all_entrants_count_wide.csv", stringsAsFactors = FALSE)
+races_finals_count$FinalCount[is.na(races_finals_count$FinalCount)] <- 0
+
+all_entrants_count_wide %>% kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F)
+```
+
+```{r count medals, warning=FALSE}
+medals <- results %>% filter(Place<4) %>% 
+  select(Club, Place) %>% group_by(Club) %>% tally() %>% rename(MedalCount=n)
+races_finals_count <- merge(races_finals_count, medals, by = "Club", all = TRUE)
+races_finals_count$MedalCount[is.na(races_finals_count$MedalCount)] <- 0
+
+points <- read.csv("data\\derived\\worlds-overall-points.csv", stringsAsFactors = FALSE)
+points <- points %>% select(-starts_with("X")) %>% filter(!is.na(Position))
+races_finals_count <- merge(races_finals_count, points, by = "Club", all = TRUE)
+
+```
+
+## Summary of results - all clubs
+
+`r length(unique(results$Club))` clubs made it into one or more final. 
+
+The total count of race categories entered by each club is shown below. Alongside is the number of finals they reached \& its proportion of the total race categories they entered, the number of medals they won (position 1, 2, or 3), and their final tally of points (best six results only).
+
+```{r count races, warning=FALSE}
+races_finals_count %>% select(Position, Club, RaceCount, FinalCount, FinalProp, MedalCount, Top6Points) %>% 
+  arrange(desc(Top6Points)) %>% kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F)
+```
+
+
+## Overall points - top ten clubs
+
+```{r from long, echo=FALSE, warning=FALSE, message=FALSE}
+
+top10 <- races_finals_count %>% arrange(desc(Top6Points)) %>% slice(1:10) %>% select(Club, Top6Points)
+
+```
+
+This table shows the ten top scoring clubs, based on their best six results.
+
+```{r leaderboard, echo = FALSE, message=FALSE}
+top10 %>% kable(col.names = c("Club", "Sum of top 6 scores")) %>%
+  row_spec(1, bold = T, color = "white", background = "darkgreen") %>% 
+  row_spec(2, bold = T, color = "white", background = "purple") %>% 
+  row_spec(3, bold = T, color = "black", background = "yellow") %>% 
+  row_spec(4, bold = T, color = "white", background = "red") %>% 
+  row_spec(5, bold = T, color = "black", background = "lawngreen") %>% 
+  row_spec(6, bold = T, color = "black", background = "orange") %>% 
+  row_spec(7, bold = T, color = "white", background = "navy") %>% 
+  row_spec(8, bold = T, color = "white", background = "darkred") %>% 
+  row_spec(9, bold = T, color = "white", background = "green") %>% 
+  row_spec(10, bold = T, color = "black", background = "deepskyblue") %>% 
+  kable_styling(bootstrap_options = ( "hover"), full_width = F)
+```
+
+The colours applied to each club in the table are used to plots each of their finish times below. All other clubs' times are grey. 
+
+```{r set up plot, warning=F}
+#split time into mins and secs/msecs
+temp1 <- str_split_fixed(results$Time, ":", 2)
+results$min <- temp1[,1]
+
+results$temp <- temp1[,2]
+results$sec <- substr(results$temp, 1, 2)
+results$msec <- substr(results$temp, 4, 4)
+results <- results %>% select(-temp)
+
+rm(temp1)
+
+#calculate single time for finish
+results <- results %>% 
+  mutate(min=as.numeric(min), sec = as.numeric(sec), msec = as.numeric(msec)) %>%
+  mutate(finish_mins=(min + (sec/60) + (msec/600)))
+
+#create colour for top ten clubs
+club_colour <- c("Dundrum"="darkgreen", "Sketrick"="purple", "Eastern"="yellow",
+                 "North Berwick"="red","St Ayles"= "navy","Boatie Blest"= "darkred",
+                 "ZMV"="gray", "WSV"= "orange", "Woudrichem"= "gray", "Ullapool"= "green", 
+                 "Troon"="gray", "Stranraer"="gray", "Strangford"="lawngreen", 
+                 "St Andrews"="gray", "Royal West"="gray", "Row Porty"="gray",
+                 "Queensferry"="gray", "Portsoy"="gray", "Orkney"="gray", 
+                 "Living Boat Trust"="gray", "Land van Altena"="gray", 
+                 "Lake Champlain"="gray", "KYC"="gray", "Killyleagh"="gray",
+                 "Hippo"="gray", "Golspie"="gray", "Glasgow"="gray", "FOCCR"="gray",
+                 "Eskmuthe"="gray", "Dunbar"="gray", "Deveron"="gray", "Cumbrae"="gray", 
+                 "Cromarty"="gray", "Crail"="gray", "Colliston"="gray", "Coigach"="gray",
+                 "Carrick"="gray", "Burghead"="gray", "Bunillidh"="gray", 
+                 "Broughty Ferry"="deepskyblue", "Ayle of Quinte"="gray", "Avoch"="gray",
+                 "Arran"="gray", "Alnmouth"="gray", "All aboard Watersports"="gray") 
+```
+
+## Plots of finals
+
+### Monday (2km races)
+```{r Monday, fig.width=8, fig.height=4, warning=F}
+results %>% filter(Date=="2019-07-08") %>% 
+  ggplot(aes(x = finish_mins, y = Race)) +
+  geom_jitter(aes(colour = Club), size = 5, alpha=0.75, height=0.15)  + 
+  scale_alpha(guide = "none") +
+  theme(legend.position="none") +
+  scale_x_continuous(breaks = seq(10, 15, 0.5), limits = c(10,15)) +
+  scale_colour_manual(values=club_colour) +
+  labs(title = "", x = "Finish time (mins)", y="Mon 8th")
+```
+
+### Tuesday (2km races)
+```{r Tuesday, fig.width=8, fig.height=2, warning=F}
+results %>% filter(Date=="2019-07-09") %>% 
+  ggplot(aes(x = finish_mins, y = Race)) +
+  geom_jitter(aes(colour = Club), size = 5, alpha=0.75, height=0.15)+ 
+  scale_alpha(guide = "none") +
+  theme(legend.position="none") +
+  scale_x_continuous(breaks = seq(10, 15, 0.5), limits = c(10,15)) +
+  scale_colour_manual(values=club_colour) +
+  labs(title = "", x = "Finish time (mins)", y="Tue 9th")
+
+```
+
+### Wednesday (2km races)
+```{r Wed, fig.width=8, fig.height=3, warning=F}
+results %>% filter(Date=="2019-07-10") %>% 
+  ggplot(aes(x = finish_mins, y = Race)) +
+  geom_jitter(aes(colour = Club), size = 5, alpha=0.75, height=0.15)+ 
+  scale_alpha(guide = "none") +
+  theme(legend.position="none") +
+  scale_x_continuous(breaks = seq(10, 15, 0.5), limits = c(10,15)) +
+  scale_colour_manual(values=club_colour) +
+  labs(title = "", x = "Finish time (mins)", y="Wed 10th")
+
+```
+
+### Thursday (2km races)
+```{r Thursday - 2km, fig.width=8, fig.height=3, warning=F}
+results %>% filter(Date=="2019-07-11" & Race!="MxU17") %>% 
+  ggplot(aes(x = finish_mins, y = Race)) +
+  geom_jitter(aes(colour = Club), size = 5, alpha=0.75, height=0.15)+ 
+  scale_alpha(guide = "none") +
+  theme(legend.position="none") +
+  scale_x_continuous(breaks = seq(10, 25, 0.5), limits = c(10,15)) +
+  scale_colour_manual(values=club_colour) +
+  labs(title = "", x = "Finish time (mins)", y="Thur 11th")
+```
+
+### Friday (2km races)
+Note different time scale
+```{r Fri - 2km, fig.width=8, fig.height=2, warning=F}
+results %>% filter(Date=="2019-07-12" & Race !="MU17") %>% 
+  ggplot(aes(x = finish_mins, y = Race)) +
+  geom_jitter(aes(colour = Club), size = 5, alpha=0.75, height=0.1)+ 
+  scale_alpha(guide = "none") +
+  theme(legend.position="none") +
+  scale_x_continuous(breaks = seq(10, 25, 0.5)) +
+  scale_colour_manual(values=club_colour) +
+  labs(title = "", x = "Finish time (mins)", y="Fri 12th")
+```
+
+### Saturday (2km races)
+Note different time scale
+```{r Sat - 2km, fig.width=8, fig.height=3, warning=F}
+results %>% filter(Date=="2019-07-13" & Race!="WU17") %>% 
+  ggplot(aes(x = finish_mins, y = Race)) +
+  geom_jitter(aes(colour = Club), size = 5, alpha=0.75, height=0.15)+ 
+  scale_alpha(guide = "none") +
+  theme(legend.position="none") +
+  scale_x_continuous(breaks = seq(10, 25, 1)) +
+  scale_colour_manual(values=club_colour) +
+  labs(title = "", x = "Finish time (mins)", y="Sat 13th")
+```
+
+### 1km races
+Note different time scale
+```{r 1km, fig.width=8, fig.height=3, warning=F}
+results %>% filter(Race=="MxU17"| Race=="MU17" | Race=="WU17") %>% 
+  ggplot(aes(x = finish_mins, y = Race)) +
+  geom_jitter(aes(colour = Club), size = 5, alpha=0.75, height = 0.1)+ 
+  scale_alpha(guide = "none") +
+  theme(legend.position="none") +
+  scale_x_continuous(breaks = seq(5, 10, 0.2)) +
+  scale_colour_manual(values=club_colour) +
+  labs(title = "", x = "Finish time (mins)", y="1km races")
+```
+
+## Summary of final finish times by race category
+Table shows first place club and their time in minutes with number of secs til the subsequent crew crossed line (i.e. 1st to 2nd, 2nd to 3rd etc).
+
+Eastern's position in each final is shown along with the time between Eastern's time and the winning (or bronze) time as a percentage of the winning time (or bronze) time. Negative percentages indicate that Eastern was faster than the given time.
+```{r position time, warning=F}
+
+race_time <- results %>% select(Race, Place, finish_mins) %>% filter(Place<6)
+#make adjustment for two identical 3rd place scores
+race_time[44, 2] = 4
+race_time[34, 2] = 4
+
+race_time_wide <- spread(race_time, key = Place, value = finish_mins)
+race_time_wide <- race_time_wide %>% rename(first=`1`, second=`2`, third = `3`, fourth = `4`, fifth = `5`)
+race_time_wide <- race_time_wide %>% 
+  mutate(sec_1_2 = (second- first)*60, sec_2_3 = (third- second)*60, sec_3_4 = (fourth- third)*60, sec_4_5 = (fifth- fourth)*60)
+
+#merge on finish time from results 
+race_time_wide <- race_time_wide %>% select(Race, starts_with("sec_"))
+first_only <- results %>% filter(Place==1) %>% select(Race, Time)
+race_time_wide <- merge(race_time_wide, first_only, by = "Race")
+race_time_wide <- race_time_wide %>% select(Race, Time, starts_with("sec_")) %>% arrange(Time)
+```
+
+```{r eastern v gold}
+
+east_res <- results %>% filter(Club=="Eastern")%>% select(Race, east_pos=Place, east_time=finish_mins)
+gold_time <- results %>% filter(Place==1) %>% select(Race, winner=Club, gold_time=finish_mins) 
+bronze_time <- results %>% filter(Place==3) %>% select(Race, bronze_time=finish_mins) %>% unique()
+
+overall <- left_join(gold_time, bronze_time, by = "Race")
+overall <- left_join(overall, east_res, by = "Race")
+
+overall <- overall %>% mutate(pc_over_gold=(east_time-gold_time)/gold_time, pc_over_bronze=(east_time-bronze_time)/bronze_time) %>% 
+  mutate(pc_over_gold=percent(pc_over_gold), pc_over_bronze=percent(pc_over_bronze))
+
+race_time_wide_prop <- left_join(race_time_wide, overall, by = "Race", all=T) 
+race_time_wide_prop <- race_time_wide_prop %>% 
+  select(Race, winner, gold_time, east_pos, pc_over_gold, sec_1_2, sec_2_3, sec_3_4, sec_4_5, bronze_time, pc_over_bronze)
+race_time_wide_prop %>% 
+  kable(digits = 2, col.names = c("Race", "Gold", "Gold time (mins)", "Eastern position", "Eastern % after gold", "secs 1st-2nd",
+                      "2nd-3rd", "3rd-4th", "4th-5th", "Bronze time (mins)", "Eastern % after bronze")) %>% 
+  kable_styling(bootstrap_options = c("striped", "hover")) 
+
+```
+
