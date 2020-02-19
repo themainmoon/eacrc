@@ -1,0 +1,201 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{ifthen}
+%\usepackage[scaled]{uarial}
+\renewcommand*\familydefault{\sfdefault}
+\usepackage[T1]{fontenc}
+\graphicspath{{./images/}}
+\usepackage{hyperref}
+\hypersetup{colorlinks,citecolor=black,filecolor=black,linkcolor=blue,urlcolor=blue}
+\usepackage{multicol}
+\usepackage{rotating}
+\usepackage[margin=1in]{geometry}
+\usepackage[outline]{contour}
+\usepackage{amsmath}
+\contourlength{.4pt}
+
+\definecolor{gray}{gray}{0.5}
+\definecolor{yellow}{cmyk}{0,0,1,0}
+
+\usepackage{comment}
+\usepackage[margin=10pt,font=small,labelfont=bf, format=hang]{caption}
+\usepackage[parfill]{parskip} %% Changes format to line between paragraph and no indent
+
+\begin{document}
+
+\begin{titlepage}
+\thispagestyle{empty}
+\begin{flushright}
+\includegraphics[width=0.25\textwidth]{eacrc-updated-logo.JPG}
+\end{flushright}
+
+\vspace{5cm}
+
+\begin{flushleft}
+\color{gray}{\Huge {Eastern Amateur Coastal Rowing Club \\}}
+\medskip 
+\huge{\contour{gray}{\textcolor{yellow}{AGM financial report}}} \\
+\medskip
+\color{gray}{\Large {February 2019 - January 2020 \\}}
+\end{flushleft}
+
+\vfill
+\end{titlepage}
+% End title page
+
+\begin{flushleft}
+\section*{Summary}
+This financial report covers income and expenditure by EACRC during its fourth full year of operation, from the beginning of February 2019 to the end of January 2020. 
+
+As in all previous years, all work done by members to keep the club running has been done voluntarily, with no payment involved. 
+
+Overview of financial landmarks each year so far:
+\begin{itemize}
+    \item 2015-17
+    \begin{itemize}
+        \item Stag, SportScotland \& Edinburgh airport funding
+        \item Build \& launch Skelf
+        \item Peak adult membership: 40
+    \end{itemize}
+    \item 2017-18
+        \begin{itemize}
+        \item Sport for All funding
+        \item Purchase 2nd boat kit
+        \item Peak adult membership: 61
+    \end{itemize}
+    \item 2018-19
+        \begin{itemize}
+        \item Edinburgh airport, Edinburgh council (local area partnership) \& trust funding
+        \item External 2nd boat build, launch Sprite \& move to Bellfield
+        \item Peak adult membership: 55
+    \end{itemize}
+\end{itemize}
+
+Income (\pounds9,285.05) and expenditure (\pounds7,616.96) during the year to end Jan 2020 is summarised by category in the figures below. 
+
+\begin{figure}[h]  \centering
+\caption{Total income and expenditure by month}
+\label{FIGinout}
+\includegraphics[width=0.9\textwidth]{inout-all-final-1920-all-catadj.pdf}
+\end{figure}
+
+\newpage
+
+As there were some months with large income and expenditure, the same graph is shown below restricted to plus and minus \pounds1k. 
+
+\begin{figure}[h]  \centering
+	\caption{Total income and expenditure by month $\pm$ \pounds1k}
+	\label{FIGinoutzoom}
+	\includegraphics[width=0.9\textwidth]{inout-all-final-1920-zoom-catadj.pdf}
+\end{figure}
+
+\section*{Income}
+Membership supplied just over half of the club's 'income' for the year as a whole. Excluding the previous year's carry over and money received in lieu of pre-paid kit purchases, circuits training sessions and social tickets it was 91\% of the club's income for the year. 
+
+The table compares this year's total to the previous year. The most significant difference is accounted for by the funds received for purchase of our second boat (most of the opening bank balance). 
+ 
+\begin{table}[h]\centering
+	\caption{Total income by category}
+	\begin{tabular}{llrr}
+		\toprule
+		 & \multicolumn{2}{c}{2019-20} & 2018-19 \\
+			    & Details     & Total & Total \\
+		\midrule
+		Opening bank balance &          & \pounds1,393.89 & \pounds9,768.97\\
+		Donation 	&  Gazebo hire      & \pounds20  & \pounds60 \\
+		Kit         &  Member orders    & \pounds1,642.20  & \pounds682.95\\
+		Membership &                    & \pounds4,875.25  & \pounds3,778.66\\
+		Regattas    & Sale of refreshments & \pounds216.15 & \pounds49.40 \\
+		Social      & Christmas event   & \pounds617.56  & \pounds589.01 \\
+		Sponsorship & Club Sport        & \pounds250.00   & \pounds4,000.00 \\
+		Training    & Circuits payments & \pounds270.00  & - \\
+		\midrule
+		\textbf{Total} &                & \textbf{\pounds9,285.05 } & \textbf{\pounds18,988.99} \\
+		\bottomrule
+	\end{tabular}
+	\label{TABincomecat}
+\end{table}
+	  
+\newpage
+
+\section*{Expenditure}
+The table below lists large items of expenditure including every item (or group of items) over \pounds100.
+
+Expenditure in the previous year is included for comparison. It shows two significant differences, related to the purchase of our second boat and costs associated with the move to Bellfield. The increased amount spent on training and regattas both largely relate to the club hosting or attending more events (i.e. more room bookings and towing to regattas and training).
+
+\begin{table}[h]\centering
+	\caption{Total expenditure by category}
+	\begin{tabular}{llrr}
+		\toprule
+		 & \multicolumn{2}{c}{2019-20} & 2018-19 \\
+			    & Details     & Total & Total \\
+	\midrule
+	Admin & Independent examiner \& room booking & \pounds70.00  & \pounds50.00 \\
+	Affiliation  & SCRA                     &\pounds60.00  &\pounds60.00 \\
+	Donation & Charity donations & \pounds218.00 & - \\
+	Equipment    & Storage unit - \pounds460   & \pounds1,768.39  & \pounds10,614.92  \\
+				 & Paint \& thinner - \pounds127 &  \\
+				 & 10 cushions - \pounds400 & \\
+				 &  Buoyancy aids - \pounds193 & \\
+				 & \ldots plus many other smaller items & \\
+	Insurance  	 &                          & \pounds644  & \pounds694.25 \\
+	Kit        & Member orders   &  \pounds1,665.57   & \pounds791.74 \\
+	Regattas   & Towing costs               & \pounds190.00   & \pounds292.48 \\
+	Rental	     &  10 x \pounds50  + 2 x \pounds100  - shed & \pounds1,750.00 & \pounds4,388.73 \\
+				 & 3 x \pounds200  + 9 x \pounds50  - yard  & \\
+    Social & Skylark hire and catering      & \pounds706.00  & \pounds572.00 \\
+	Training    & Room hire, Dullatur towing, circuits  & \pounds545.00 &\pounds117.47  \\
+	\midrule
+	\textbf{Total} & & \textbf{\pounds7,616.96 } & \textbf{\pounds17,535.10}  \\
+	\bottomrule
+	\end{tabular}
+	\label{TABincome}
+\end{table}
+
+As agreed at previous AGMs the club aims to retain \pounds1k in reserve. The club's bank balance at the end of January 2020 was \textbf{\pounds1,668.09}. 
+
+\newpage
+
+\section*{Plans for 2020} 	
+It has been noted this year that the towing fee paid is not optimally set up to compensate  drivers for the wear and tear on their vehicles, the burden of which (for training or regattas) falls on a small number of members' shoulders. A change to towing fees for the coming year was agreed by the committee such that a fee of 30p per mile can be claimed. This is lower than the HMRC recommended mileage claim for work related journeys (45p), but as these journeys are likely to be taken by someone who was already planning on making the journey by personal choice, this compromise was thought an appropriate use of club funds. It is estimated that it will increase the amount the club pays out for towing by around one third. The increase will come from including payment for journeys under 25 miles (e.g. North Berwick 23 miles: currently \pounds0 will now be paid approx \pounds6.90 each way) and paying more for long distance journeys (e.g. Ullapool 214 miles: \pounds25 - \pounds64.20 each way) while some journeys will be paid less (Queensferry 26 miles: \pounds15 - \pounds7.80).  
+
+Membership fees have not been increased. Expected income from membership in 2020 is between \pounds5-5.5k. 
+
+Expected costs total approximately \pounds4.5k and will therefore be covered by member fees.  
+\begin{itemize}
+	\item Rental of \pounds150 per month: \pounds1,800 
+	    \begin{itemize}
+	        \item there may be some additional costs associated with rental space required during boat maintenance
+	    \end{itemize}
+	\item Skelf \& Sprite equipment upgrade, repair or replacement: \pounds1150 
+	\begin{itemize}
+	    \item including new oars: \pounds350
+	\end{itemize}
+	\item Insurance: \pounds650
+	\item Admin \& affiliation:  \pounds100
+	\item Training support: \pounds350
+	\item Towing to events: \pounds400
+\end{itemize} 
+\medskip
+
+Other sources of sponsorship will be sought as necessary for unanticipated costs or new initiatives. We aim to hold \pounds1k in reserve at the end of January 2021.
+
+Niall Stirling will take over as treasurer this year.
+
+\end{flushleft}
+
+\begin{center}
+\vfill
+
+
+\textit{Figures collated and document produced by Claire Tochel, EACRC treasurer.} 
+
+\textit{Contact {\color{blue}{themainmoon@gmail.com}} for further information.}
+\end{center}
+
+
+\end{document}
