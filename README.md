@@ -1,5 +1,7 @@
 # eacrc-treasurer
 
-This repository gathers together public information created related to the role of treasurer for [Eastern Amateur Coastal Rowing Club (EACRC)](https://eacrc.wordpress.com/).
+This repository gathers together scripts, documents and analysis undertaken to support [Eastern Amateur Coastal Rowing Club (EACRC)](https://eacrc.wordpress.com/):
+* financial info (treasurer between 2015 and 2020)
+* analysis of events, regattas, training
 
-I held this role between 2015 and 2020.
+
